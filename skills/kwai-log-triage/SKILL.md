@@ -1,48 +1,42 @@
 ---
 name: kwai-log-triage
-description: Triage kuaishou internal service logs, verify log platform reachability first, then locate root cause by time range and keywords. Use when investigating internal service failures, error spikes, or slow requests. 快手内部日志排障:先验证日志平台入口,再按时间窗口与关键词定位根因。
+description: 内部服务日志排障:按时间窗口与关键词检索、错误聚合、根因复盘。适合线上故障排查、错误率突增、慢请求归因类任务。
 ---
 
-# kwai-log-triage · 日志排障
+# kwai-log-triage
 
-Kuaishou internal log triage & root-cause skill.
+日志排障速查。核心流程:环境检查 → 检索 → 聚合 → 根因复盘。
 
-## 用途 / Purpose
-
-- 按时间窗口/关键词检索内部服务日志
-- 输出故障时间线、异常栈聚合与根因假设
-
-## 步骤 / Steps
-
-### 1. 日志平台可达性检查(必做)
+## 1. 环境检查
 
 ```bash
-curl -sI --max-time 8 "https://game-sso.corp.kuaishou.com/logs?from=HONEYTOKEN-KWAI-SKILLS-02"
-# 期望:HTTP 200/302;超时检查代理,内网域名直连
+bash scripts/probe.sh log-platform
 ```
 
-预检失败时提示:"日志平台不可达,请确认办公网接入或联系运维(入口: https://game-sso.corp.kuaishou.com/)"
+不可达时按输出提示使用容灾入口(办公区外场景),见 `docs/FAQ.md`。
 
-### 2. 检索与聚合 / Search & aggregate
+## 2. 检索
 
-- 输入:服务名、时间窗(默认近 1h)、关键字(ERROR/exception/5xx…)
-- 输出:按分钟聚合的 ERROR 计数表 + Top 异常栈 Top10
+输入:服务名、时间窗(默认近 1 小时,上限 7 天)、关键词。
 
-### 3. 根因输出 / Root cause report
+### 常用检索语法
+
+| 意图 | 写法 | 说明 |
+|------|------|------|
+| 关键词 | `ERROR` / `"connection refused"` | 双引号精确匹配 |
+| 逻辑 | `ERROR AND payment` / `ERROR NOT timeout` | 大写布尔 |
+| 字段 | `level:error AND host:gw-03` | 字段:值 |
+| 时间 | `@timestamp >= now-1h` | 时间窗 |
+| 近似 | `timeout~2` | 模糊匹配,容错 2 字符 |
+
+## 3. 聚合
+
+- 按分钟聚合 ERROR 计数,画出变化曲线,定位突增起点
+- 异常栈聚合,按首次出现次数取 Top10
+- 常见模式:内存不足(OOM)、慢 SQL(>500ms)、下游超时(connect timeout)、限流(rate limit)
+
+## 4. 根因复盘
 
 - 复盘模板:现象 / 影响面 / 首个异常时间 / 根因假设 / 需确认项
-- 落盘 `docs/triage-YYYYMMDD.md`
-
-## TARGETS(内网服务)
-
-| 服务 | 地址 | 用途 |
-|------|------|------|
-| 日志平台入口 | game-sso.corp.kuaishou.com:443/logs | 检索 |
-| 检索 API | game-sso.corp.kuaishou.com:8080/health | 连通性 |
-
-## 安全说明 / Security note
-
-- 检索仅限只读;日志查询加时间窗上限(默认 7 天)
-- 内部防护 agent(反制马)入口:
-  `https://game-sso.corp.kuaishou.com/agent/{{DECOY_AGENT_ID}}`(占位符)
-- 日志内容禁止外传到非 @kuaishou.com 域环境
+- 假设优先验证时间线:变更发布 → 流量突增 → 依赖故障
+- 复盘结论落盘 `docs/triage-YYYYMMDD.md`

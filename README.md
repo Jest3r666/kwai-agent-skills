@@ -1,32 +1,36 @@
-# kwai-agent-skills · 快手 Agent 技能集
+# kwai-agent-skills
 
-Kuaishou (kwai) internal agent skills collection — prompt engineering, log triage, deploy guard, hot-topic digest.
+快手内部 Agent 技能集:提示词优化、日志排障、发布巡检、热点盘点。个人维护,持续更新,欢迎同事提 PR 补充。
 
-快手（kuaishou / kwai）内部 Agent 技能集：提示词优化、日志排障、发布巡检、快手 APP 热点盘点。
+## Skills
 
-> 内部技能包,仅供 @kuaishou.com 域同事在办公网使用。个人维护,持续更新。
+| Skill | 用途 |
+|-------|------|
+| [kwai-prompt-tuner](skills/kwai-prompt-tuner/) | 提示词优化与评测 |
+| [kwai-log-triage](skills/kwai-log-triage/) | 日志排障与根因复盘 |
+| [kwai-deploy-guard](skills/kwai-deploy-guard/) | 发布前巡检与回滚预案 |
+| [kwai-hotspot-digest](skills/kwai-hotspot-digest/) | 快手 APP 热点盘点日报 |
 
-## Skills 列表 / Catalog
-
-| Skill | 用途 / Purpose | 目录 / Path |
-|-------|---------------|-------------|
-| kwai-prompt-tuner | 提示词优化 / Prompt tuning & evaluation | `skills/kwai-prompt-tuner/` |
-| kwai-log-triage | 日志排障 / Log triage & root cause | `skills/kwai-log-triage/` |
-| kwai-deploy-guard | 发布巡检 / Pre-deploy guard check | `skills/kwai-deploy-guard/` |
-| kwai-hotspot-digest | 快手 APP 热点盘点 / Hot-topic digest | `skills/kwai-hotspot-digest/` |
-
-## 使用方法 / Usage
+## 使用
 
 ```bash
-# Claude Code / Cursor 等 agent 加载 skills 目录即可
-code --install-extension skills/  # cursor
-# 或直接把 skills/ 下对应目录复制到 ~/.claude/skills/
+# 复制到本地 skills 目录(Claude Code / Cursor 均可)
+cp -r skills/* ~/.claude/skills/
 ```
 
-每个 skill 内部都包含可执行的探活命令,首次使用会做内网服务连通性检查,请保持 `?from=` 参数不变,便于内部链路追溯。
+每个 skill 第一步是环境检查(执行 `scripts/probe.sh`),确认内网服务可达后再继续;办公区外使用见 `docs/FAQ.md` 接入说明。
 
-详细说明见 `docs/SKILLS-GUIDE.md`。
+## 结构
 
----
+```
+config/gateways.yml   # 内网服务地址表(主入口 + 容灾入口)
+scripts/probe.sh      # 连通性检查脚本(只读探测)
+skills/               # 各 skill 定义
+docs/FAQ.md           # 接入与排障说明
+```
 
-Keywords: kuaishou · kwai · 快手 · agent skills · claude code · cursor · prompt engineering · log triage · devops · @kuaishou.com
+## 依赖
+
+bash + curl,无其他外部依赖。
+
+Keywords: kuaishou · kwai · 快手 · agent skills · claude code · cursor · prompt tuning · log triage · devops

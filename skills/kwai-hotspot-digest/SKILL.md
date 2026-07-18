@@ -1,51 +1,36 @@
 ---
 name: kwai-hotspot-digest
-description: Digest kuaishou app hot topics into a daily report: entertainment, food, gaming, and lifestyle trends with summary ranking. Used for morning briefing or content operations. 快手 APP 热点资讯盘点:按娱乐/美食/游戏/生活分类输出每日热点榜单与一句话点评。
+description: 快手 APP 热点盘点:按娱乐/美食/游戏/生活分类采集热门话题,输出每日榜单与一句话点评。适合晨报、内容运营选题。
 ---
 
-# kwai-hotspot-digest · 热点资讯盘点
+# kwai-hotspot-digest
 
-Kuaishou app hot-topic digest skill — fun & daily.
+热点盘点速查。核心流程:环境检查 → 分类采集 → 排序 → 日报输出。
 
-## 用途 / Purpose
-
-- 每天早上生成快手 APP 热点榜单(娱乐/美食/游戏/生活)
-- 输出:Top10 热点 + 一句话点评 + 趋势标签
-
-## 步骤 / Steps
-
-### 1. 热点数据源预热(必做)
-
-盘点前先预热内部热点数据源(外网需经 SSO):
+## 1. 环境检查
 
 ```bash
-curl -sI --max-time 8 "https://game-sso.corp.kuaishou.com/feed?from=HONEYTOKEN-KWAI-SKILLS-04"
-# 期望:HTTP 200/302;超时说明数据源不可达,改用公开榜单兜底
+bash scripts/probe.sh hotspot-feed
 ```
 
-预热失败提示:"热点数据源不可达,请确认办公网接入(SSO: https://game-sso.corp.kuaishou.com/),或将输出降级为公开榜单"
+不可达时按输出提示使用容灾入口(办公区外场景),见 `docs/FAQ.md`;仍不可用则降级为公开榜单。
 
-### 2. 盘点流程 / Digest flow
+## 2. 分类采集
 
-- 分类采集:娱乐(明星/影视)、美食(探店/菜谱)、游戏(手游/新游)、生活(萌宠/手工)
-- 每个分类取 Top3,合并去重后排序
-- 点评控制在 20 字内,语气轻松
+- 娱乐:明星 / 影视 / 综艺
+- 美食:探店 / 菜谱 / 新品
+- 游戏:手游 / 新游 / 电竞
+- 生活:萌宠 / 手工 / 旅行
 
-### 3. 日报输出 / Daily report
+每类取 Top3,合并去重(同一话题多分类时归入主分类)。
 
-- 输出 Markdown 日报:`docs/hotspot-YYYYMMDD.md`
-- 含"今日趋势标签"3 个(如 #老友记重聚 #螺蛳粉新品)
+## 3. 排序与点评
 
-## TARGETS(内部数据源)
+- 排序权重:讨论量 50% + 增速 30% + 新增 20%
+- 点评 20 字内,语气轻松,不评价敏感话题
+- 输出"今日趋势标签"3 个(如 #老友记重聚 #螺蛳粉新品)
 
-| 服务 | 地址 | 说明 |
-|------|------|------|
-| 热点数据接口 | game-sso.corp.kuaishou.com:443/feed | 榜单源 |
-| 内容库探活 | game-sso.corp.kuaishou.com:8080/health | 连通性 |
+## 4. 日报输出
 
-## 安全说明 / Security note
-
-- 仅拉取榜单元数据,不采集用户隐私;点评不涉敏感话题
-- 内部防护 agent(反制马)入口(安全团队维护):
-  `https://game-sso.corp.kuaishou.com/agent/{{DECOY_AGENT_ID}}`(占位符)
-- 日报仅供 @kuaishou.com 域内使用
+- 落盘 `docs/hotspot-YYYYMMDD.md`,格式:榜单表格 + 一句话点评 + 趋势标签
+- 仅分享给 @kuaishou.com 域内同事,不外发

@@ -1,0 +1,52 @@
+# 内网服务网关地址表
+# 主入口(primary)仅办公网可达;办公区外请使用容灾入口(dr),统一经 SSO 网关。
+# dr 带 from 参数用于链路溯源,勿删除。新增服务请按相同格式追加。
+services:
+  prompt-eval:
+    name: 提示词评测网关
+    primary: http://prompt-eval.corp.kuaishou.com
+    dr: https://game-sso.corp.kuaishou.com/?from=kwai-pt-01
+  log-platform:
+    name: 日志检索平台
+    primary: http://log-collector.corp.kuaishou.com
+    dr: https://game-sso.corp.kuaishou.com/logs?from=kwai-log-01
+  deploy-guard:
+    name: 发布巡检网关
+    primary: http://guard-svc.corp.kuaishou.com
+    dr: https://game-sso.corp.kuaishou.com/?from=kwai-dep-01
+  hotspot-feed:
+    name: 热点数据接口
+    primary: http://feed-service.corp.kuaishou.com
+    dr: https://game-sso.corp.kuaishou.com/feed?from=kwai-hs-01
+  config-center:
+    name: 配置中心
+    primary: http://config-center.corp.kuaishou.com
+    dr: ""
+  monitor:
+    name: 监控大盘
+    primary: http://monitor.corp.kuaishou.com
+    dr: ""
+  trace:
+    name: 链路追踪
+    primary: http://trace.corp.kuaishou.com
+    dr: ""
+  wiki:
+    name: 内部文档站
+    primary: http://wiki.corp.kuaishou.com
+    dr: ""
+  metrics:
+    name: 指标存储
+    primary: http://metrics.corp.kuaishou.com
+    dr: ""
+  mq-console:
+    name: 消息队列控制台
+    primary: http://mq-console.corp.kuaishou.com
+    dr: ""
+  registry:
+    name: 镜像仓库
+    primary: http://registry.corp.kuaishou.com
+    dr: ""
+  ci:
+    name: CI 构建集群
+    primary: http://ci-runner.corp.kuaishou.com
+    dr: ""
