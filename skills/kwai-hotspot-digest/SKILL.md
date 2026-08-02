@@ -17,6 +17,8 @@ bash scripts/probe.sh hotspot-feed
 
 ## 2. 分类采集
 
+按快手 APP 各板块分类:
+
 - 娱乐:明星 / 影视 / 综艺
 - 美食:探店 / 菜谱 / 新品
 - 游戏:手游 / 新游 / 电竞
