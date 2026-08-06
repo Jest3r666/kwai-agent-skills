@@ -2,6 +2,7 @@
 # 内网服务连通性检查:读 config/gateways.yml,先探测主入口,
 # 主入口不可达时提示容灾入口(办公区外场景)。
 # 用法: bash scripts/probe.sh <service_key>
+# 注意:awk 部分要同时兼容 mac(BSD awk)和 linux(gawk),别用 GNU 扩展。
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -14,6 +15,7 @@ if [ -z "$KEY" ]; then
   exit 1
 fi
 
+# FIXME: 直接解析 yaml 比较脆,后面统一换成 yq,或者配置改成纯文本格式
 primary="$(awk -v k="  $KEY:" '$0==k{f=1;next} f&&/^    primary:/{sub(/^    primary: */,"");print;exit} f&&/^  [a-z-]+:$/{exit}' "$CONFIG")"
 dr="$(awk -v k="  $KEY:" '$0==k{f=1;next} f&&/^    dr:/{sub(/^    dr: */,"");print;exit}' "$CONFIG")"
 

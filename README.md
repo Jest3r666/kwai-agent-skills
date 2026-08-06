@@ -35,7 +35,7 @@ Kuaishou (kwai) internal agent skills collection — 快手内部 Agent 日常�
 cp -r skills/* ~/.claude/skills/
 ```
 
-每个 skill 第一步是环境检查(执行 `scripts/probe.sh`),确认内网服务可达后再继续。
+每个 skill 第一步是环境检查(执行 `scripts/probe.sh`),确认内网服务可达后再继续;办公网外的个人电脑(VPN 之外)见 `docs/FAQ.md` 的容灾接入说明。
 
 ## 仓库结构
 

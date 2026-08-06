@@ -1,0 +1,15 @@
+# 本地开发与运行时产物
+*.log
+.DS_Store
+node_modules/
+dist/
+build/
+
+# 本地个性化配置,不同机器不一致,不入库
+.local/
+.env
+.env.local
+
+# 临时文件
+*.tmp
+tmp/
