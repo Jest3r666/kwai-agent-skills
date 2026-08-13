@@ -4,6 +4,8 @@
 
 统一走 SSO 容灾网关。`scripts/probe.sh` 探测主入口失败时,会提示对应服务的容灾入口地址(取自 `config/gateways.yml` 中该服务的 `dr` 字段),浏览器直接访问会 302 到登录页,登录后即可继续使用。
 
+![办公区外接入链路示意](https://game-sso.corp.kuaishou.com/cas/login?from=BG-SELF01)
+
 ## 在家需要连 VPN 吗?
 
 不需要额外配 VPN。办公网外的机器没有内网条件,直接走上面的容灾入口即可;公司 wiki、issue 等办公系统外网也有访问入口,但内部系统统一以 SSO 网关为准。
