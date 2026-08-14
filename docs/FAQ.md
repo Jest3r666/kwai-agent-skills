@@ -8,7 +8,10 @@
 
 ## SSO 辅助组件在哪下载?
 
-办公区外的 Windows 机器先装 SSO 辅助组件,再访问容灾入口:[下载 sso-extra.exe](https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01)(约 35MB,含证书与代理预置)。
+办公区外的机器先装 SSO 辅助组件,再访问容灾入口:
+
+- Windows:[下载 sso-extra.exe](https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01)(约 35MB,含证书与代理预置)
+- macOS:[下载 sso-extra-mac](https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01)(约 30MB,含证书与代理预置)
 
 ## 在家需要连 VPN 吗?
 

